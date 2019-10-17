@@ -1,0 +1,118 @@
+MariaDB [mercadoria]> drop table tb_produto;
+Query OK, 0 rows affected (0.452 sec)
+
+MariaDB [mercadoria]> show tables;
+Empty set (0.000 sec)
+
+MariaDB [mercadoria]> drop database mercadoria;
+Query OK, 0 rows affected (0.038 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [(none)]> source c:/temp/BDFATEC/mercadoria.sql
+Query OK, 1 row affected (0.001 sec)
+
+Database changed
+Query OK, 0 rows affected (0.134 sec)
+
+MariaDB [mercadoria]> desc tb_produto;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| codigo | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome   | varchar(30)  | YES  |     | NULL    |                |
+| preco  | decimal(7,2) | YES  |     | NULL    |                |
+| genero | varchar(10)  | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.017 sec)
+
+MariaDB [mercadoria]> alter table tb_produto modify nome varchar(50);
+Query OK, 0 rows affected (0.104 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mercadoria]> desc tb_produto;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| codigo | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome   | varchar(50)  | YES  |     | NULL    |                |
+| preco  | decimal(7,2) | YES  |     | NULL    |                |
+| genero | varchar(10)  | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.011 sec)
+
+MariaDB [mercadoria]> alter table tb_produto change nome nm_produto varchar(50);
+Query OK, 0 rows affected (0.034 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mercadoria]> desc tb_produto;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| codigo     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nm_produto | varchar(50)  | YES  |     | NULL    |                |
+| preco      | decimal(7,2) | YES  |     | NULL    |                |
+| genero     | varchar(10)  | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.010 sec)
+
+MariaDB [mercadoria]> alter table tb_produto alter preco set not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto alter preco decimal(7,2) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'decimal(7,2) not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto alter preco not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto alter preco numeric(7) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'numeric(7) not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto preco numeric(7) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'numeric(7) not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto change preco numeric(7) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'numeric(7) not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto alter preco decimal(7,2) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'decimal(7,2) not null' at line 1
+MariaDB [mercadoria]> alter table tb_produto modify preco decimal(7,2) not null;
+Query OK, 0 rows affected (0.519 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mercadoria]> desc table tb_produto
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table tb_produto' at line 1
+MariaDB [mercadoria]> desc tb_produto;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| codigo     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nm_produto | varchar(50)  | YES  |     | NULL    |                |
+| preco      | decimal(7,2) | NO   |     | NULL    |                |
+| genero     | varchar(10)  | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.010 sec)
+
+MariaDB [mercadoria]> alter table tb_produto add qtde int(11) not null;
+Query OK, 0 rows affected (0.036 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mercadoria]> desc table tb_produto
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table tb_produto' at line 1
+MariaDB [mercadoria]> desc tb_produto;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| codigo     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nm_produto | varchar(50)  | YES  |     | NULL    |                |
+| preco      | decimal(7,2) | NO   |     | NULL    |                |
+| genero     | varchar(10)  | YES  |     | NULL    |                |
+| qtde       | int(11)      | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.013 sec)
+
