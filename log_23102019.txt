@@ -1,0 +1,109 @@
+MariaDB [escola]> select nome,datanasc from tabalunos where curso = 'ads' and sexo = 'f';
++-----------------+------------+
+| nome            | datanasc   |
++-----------------+------------+
+| Mariana Menezes | 1998-12-25 |
+| Juliana Santos  | 1998-08-20 |
++-----------------+------------+
+2 rows in set (0.000 sec)
+
+MariaDB [escola]> insert into tabalunos (matricula,nome,curso) values(null,'Gilberto','ads');
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [escola]> insert into tabalunos (matricula,nome,curso) values(null,'Eva Maria','pol');
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [escola]> --2
+MariaDB [escola]> select 2 + 2;
++-------+
+| 2 + 2 |
++-------+
+|     4 |
++-------+
+1 row in set (0.000 sec)
+
+MariaDB [escola]> select 2 + 2 as soma;
++------+
+| soma |
++------+
+|    4 |
++------+
+1 row in set (0.000 sec)
+
+MariaDB [escola]> select * from tabalunos;
++-----------+-------------------+------+------------+-------+-------+-------+
+| matricula | nome              | sexo | datanasc   | curso | nota1 | nota2 |
++-----------+-------------------+------+------------+-------+-------+-------+
+|         1 | Renato Paiva      | m    | 1998-10-10 | ADS   |  6.00 |  7.00 |
+|         2 | Marcelo Guimaraes | m    | 1997-10-20 | SEG   |  5.00 |  8.00 |
+|         3 | Alexandre Cardoso | m    | 1998-01-10 | ADS   |  8.00 | 10.00 |
+|         4 | Carlos Carvalho   | m    | 1996-05-20 | SEG   |  6.50 |  8.50 |
+|         5 | Paulo Pavanini    | m    | 1995-08-15 | ADS   |  7.00 |  9.00 |
+|         6 | Mariana Menezes   | f    | 1998-12-25 | ADS   |  4.00 |  8.00 |
+|         7 | Deise Guimaraes   | f    | 1997-01-25 | SEG   |  5.00 |  8.00 |
+|         8 | Ana Luiza Santos  | f    | 1996-05-13 | JOG   |  8.00 |  8.50 |
+|         9 | Vera Mendes       | f    | 1997-11-01 | COM   |  6.00 |  6.50 |
+|        10 | Juliana Santos    | f    | 1998-08-20 | ADS   |  8.00 |  4.00 |
+|        11 | Gilberto          | m    | NULL       | ads   |  NULL |  NULL |
+|        12 | Eva Maria         | m    | NULL       | pol   |  NULL |  NULL |
++-----------+-------------------+------+------------+-------+-------+-------+
+12 rows in set (0.000 sec)
+
+MariaDB [escola]> delete from tabalunos where matricula in(11,12);
+Query OK, 2 rows affected (0.025 sec)
+
+MariaDB [escola]> select * from tabalunos;
++-----------+-------------------+------+------------+-------+-------+-------+
+| matricula | nome              | sexo | datanasc   | curso | nota1 | nota2 |
++-----------+-------------------+------+------------+-------+-------+-------+
+|         1 | Renato Paiva      | m    | 1998-10-10 | ADS   |  6.00 |  7.00 |
+|         2 | Marcelo Guimaraes | m    | 1997-10-20 | SEG   |  5.00 |  8.00 |
+|         3 | Alexandre Cardoso | m    | 1998-01-10 | ADS   |  8.00 | 10.00 |
+|         4 | Carlos Carvalho   | m    | 1996-05-20 | SEG   |  6.50 |  8.50 |
+|         5 | Paulo Pavanini    | m    | 1995-08-15 | ADS   |  7.00 |  9.00 |
+|         6 | Mariana Menezes   | f    | 1998-12-25 | ADS   |  4.00 |  8.00 |
+|         7 | Deise Guimaraes   | f    | 1997-01-25 | SEG   |  5.00 |  8.00 |
+|         8 | Ana Luiza Santos  | f    | 1996-05-13 | JOG   |  8.00 |  8.50 |
+|         9 | Vera Mendes       | f    | 1997-11-01 | COM   |  6.00 |  6.50 |
+|        10 | Juliana Santos    | f    | 1998-08-20 | ADS   |  8.00 |  4.00 |
++-----------+-------------------+------+------------+-------+-------+-------+
+10 rows in set (0.000 sec)
+
+MariaDB [escola]> select avg(nota1) as media_nota1,avg(nota2) as media_nota2
+    -> from tabalunos group by nota1, nota2;
++-------------+-------------+
+| media_nota1 | media_nota2 |
++-------------+-------------+
+|    4.000000 |    8.000000 |
+|    5.000000 |    8.000000 |
+|    6.000000 |    6.500000 |
+|    6.000000 |    7.000000 |
+|    6.500000 |    8.500000 |
+|    7.000000 |    9.000000 |
+|    8.000000 |    4.000000 |
+|    8.000000 |    8.500000 |
+|    8.000000 |   10.000000 |
++-------------+-------------+
+9 rows in set (0.063 sec)
+
+MariaDB [escola]> select avg(nota1) as media_nota1 from tabalunos group by nota1;
++-------------+
+| media_nota1 |
++-------------+
+|    4.000000 |
+|    5.000000 |
+|    6.000000 |
+|    6.500000 |
+|    7.000000 |
+|    8.000000 |
++-------------+
+6 rows in set (0.000 sec)
+
+MariaDB [escola]> select avg(nota1) as media_nota1 from tabalunos where curso ='ads' group by curso;
++-------------+
+| media_nota1 |
++-------------+
+|    6.600000 |
++-------------+
+1 row in set (0.040 sec)
+
